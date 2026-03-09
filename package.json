@@ -1,0 +1,32 @@
+{
+  "name": "fast-upost",
+  "version": "1.0.0",
+  "description": "Fast WordPress publishing app",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Add your web build command here (e.g., vite build)'",
+    "cap:init": "npx cap init 'Fast uPost' com.nadav.fastupost --web-dir dist",
+    "cap:add:android": "npx cap add android",
+    "cap:sync": "npx cap sync android",
+    "cap:copy": "npx cap copy android",
+    "cap:open": "npx cap open android",
+    "cap:run": "npx cap run android",
+    "android:build": "npm run build && npx cap sync android",
+    "android:release": "npm run build && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "android:apk": "npm run build && npx cap sync android && cd android && ./gradlew assembleRelease",
+    "android:debug": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/app": "^6.0.0",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/haptics": "^6.0.0",
+    "@capacitor/keyboard": "^6.0.0",
+    "@capacitor/splash-screen": "^6.0.0",
+    "@capacitor/status-bar": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0",
+    "typescript": "^5.5.0"
+  }
+}
