@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+
 const GRAPH_API_VERSION = process.env.GRAPH_API_VERSION || "v21.0";
 const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || "";
 const AD_ACCOUNT_ID = process.env.META_AD_ACCOUNT_ID || "";
@@ -165,4 +167,28 @@ export function updateBudget(opts: {
 
 export function setStatus(opts: { entityId: string; status: "ACTIVE" | "PAUSED" }) {
   return graphPost(opts.entityId, { status: opts.status });
+}
+
+export function getAccountInfo() {
+  return graphGet(AD_ACCOUNT_ID, {
+    fields: "name,currency,timezone_name,amount_spent,balance,spend_cap",
+  });
+}
+
+export function listPages() {
+  return graphGet("me/accounts", { fields: "id,name,category" });
+}
+
+export function uploadImage(opts: { url?: string; localPath?: string; name?: string }) {
+  if (!opts.url && !opts.localPath) {
+    throw new Error("uploadImage requires either url or localPath");
+  }
+  const body: Record<string, unknown> = {};
+  if (opts.url) {
+    body.url = opts.url;
+  } else if (opts.localPath) {
+    body.bytes = readFileSync(opts.localPath).toString("base64");
+  }
+  if (opts.name) body.name = opts.name;
+  return graphPost(`${AD_ACCOUNT_ID}/adimages`, body);
 }

@@ -32,9 +32,9 @@ npm start
 
 ## כלים זמינים לסוכן
 
-קריאה: `list_campaigns`, `get_insights`, `list_adsets`, `list_ads`, `get_ad_creative`.
+קריאה: `list_campaigns`, `get_insights`, `list_adsets`, `list_ads`, `get_ad_creative`, `get_account_info`, `list_pages`.
 
-ביצוע: `create_campaign`, `create_adset`, `create_ad_creative`, `create_ad`, `update_budget`, `set_status`.
+ביצוע: `create_campaign`, `create_adset`, `create_ad_creative`, `create_ad`, `update_budget`, `set_status`, `upload_image`.
 
 יצירות חדשות נוצרות כברירת מחדל במצב `PAUSED` כדי שתוכל לבדוק לפני שמוציאים תקציב בפועל.
 

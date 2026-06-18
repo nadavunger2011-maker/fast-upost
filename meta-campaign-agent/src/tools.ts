@@ -54,6 +54,28 @@ export const toolDefinitions: Anthropic.Tool[] = [
     },
   },
   {
+    name: "get_account_info",
+    description: "Get ad account details: currency, timezone, total spend, balance, spend cap. Use this to interpret budget numbers correctly (they are in the account's minor currency unit).",
+    input_schema: { type: "object", properties: {} },
+  },
+  {
+    name: "list_pages",
+    description: "List Facebook Pages accessible by the current access token, with their Page IDs. Needed to get a pageId for create_ad_creative.",
+    input_schema: { type: "object", properties: {} },
+  },
+  {
+    name: "upload_image",
+    description: "Upload an image to the ad account's image library (from a public URL or a local file path) and return its image hash, for use in create_ad_creative.",
+    input_schema: {
+      type: "object",
+      properties: {
+        url: { type: "string", description: "Public URL of the image to upload" },
+        localPath: { type: "string", description: "Local filesystem path to the image file" },
+        name: { type: "string" },
+      },
+    },
+  },
+  {
     name: "create_campaign",
     description: "Create a new campaign. Defaults to PAUSED status so it can be reviewed before going live.",
     input_schema: {
@@ -160,6 +182,12 @@ export async function callTool(name: string, input: Record<string, unknown>): Pr
       return meta.listAds(input.adsetId as string);
     case "get_ad_creative":
       return meta.getAdCreative(input.creativeId as string);
+    case "get_account_info":
+      return meta.getAccountInfo();
+    case "list_pages":
+      return meta.listPages();
+    case "upload_image":
+      return meta.uploadImage(input as never);
     case "create_campaign":
       return meta.createCampaign(input as never);
     case "create_adset":
